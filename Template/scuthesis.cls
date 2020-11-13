@@ -6,16 +6,32 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{../Template/scuthesis}[2016/05/30 v0.1]
 % 声明传入参数，定义对应的论文类别，分别对应博士、硕士和学士学位论文。这里由于tex对中文支持不够，因此不能在此定义论文名称。
-\DeclareOption{doctor}{\def\thesistype{0}}
-\DeclareOption{master}{\def\thesistype{1}}
-\DeclareOption{bachelor}{\def\thesistype{2}}
+% \newcommand{\thesistype}{}
+\newcommand{\thesisname}{学位论文}
+\newcommand{\CHSauthortype}{学生}
+\newcommand{\ENGauthortype}{Student}
+\DeclareOption{doctor}{
+	\renewcommand{\thesisname}{博士学位论文}
+	\renewcommand{\CHSauthortype}{研究生}
+	\renewcommand{\ENGauthortype}{Postgraduate}
+}
+\DeclareOption{master}{
+	\renewcommand{\thesisname}{硕士学位论文}
+	\renewcommand{\CHSauthortype}{研究生}
+	\renewcommand{\ENGauthortype}{Postgraduate}
+}
+\DeclareOption{bachelor}{
+	\renewcommand{\thesisname}{学士学位论文}
+	\renewcommand{\CHSauthortype}{本科生}
+	\renewcommand{\ENGauthortype}{Undergraduate}
+}
 % 将文档类其他参数全部传递给 ctexbook 文档类。
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
 % 此文档类以 ctexbook 为基础，设定页面尺寸为 A4，默认字号为小四号。
 % CJKfntef 宏包提供了 \maketitle 中用到的 \CJKunderline 命令。
 % fancyhdr 宏包提供了方便使用的命令用于设置页眉、页脚。
-\LoadClass[fntef, a4paper, fancyhdr, cs4size]{ctexbook}
+\LoadClass[fntef, a4paper, fancyhdr, zihao=-4]{ctexbook}
 % 加入判断支持
 \RequirePackage{ifthen}
 % 此宏包提供图形支持。
@@ -78,80 +94,87 @@
 % 三线表支持
 \RequirePackage{booktabs}
 % 这些命令用于设定各项文档信息的具体内容。
-\newcommand\ENGtitle[1]{\def\@ENGtitle{#1}}
-\newcommand\ENGauthor[1]{\def\@ENGauthor{#1}}
-\newcommand\accomplishdate[1]{\def\@accomplishdate{#1}}
-\newcommand\school[1]{\def\@school{#1}}
-\newcommand\supervisor[1]{\def\@supervisor{#1}}
-\newcommand\ENGsupervisor[1]{\def\@ENGsupervisor{#1}}
-\newcommand\major[1]{\def\@major{#1}}
-\newcommand\ENGmajor[1]{\def\@ENGmajor{#1}}
-\newcommand\direction[1]{\def\@direction{#1}}
-\newcommand\ENGdirection[1]{\def\@ENGdirection{#1}}
-\newcommand\defensedate[1]{\def\@defensedate{#1}}
-\newcommand\keywords[1]{\def\@keywords{#1}}
-\newcommand\ENGkeywords[1]{\def\@ENGkeywords{#1}}
-\newcommand\university[1]{\def\@university{#1}}
-\newcommand\ENGuniversity[1]{\def\@ENGuniversity{#1}}
+\newcommand{\ENGtitle}[1]{\def\@ENGtitle{#1}}
+\newcommand{\ENGauthor}[1]{\def\@ENGauthor{#1}}
+\newcommand{\accomplishdate}[1]{\def\@accomplishdate{#1}}
+\newcommand{\school}[1]{\def\@school{#1}}
+\newcommand{\supervisor}[1]{\def\@supervisor{#1}}
+\newcommand{\ENGsupervisor}[1]{\def\@ENGsupervisor{#1}}
+\newcommand{\major}[1]{\def\@major{#1}}
+\newcommand{\ENGmajor}[1]{\def\@ENGmajor{#1}}
+\newcommand{\direction}[1]{\def\@direction{#1}}
+\newcommand{\ENGdirection}[1]{\def\@ENGdirection{#1}}
+\newcommand{\defensedate}[1]{\def\@defensedate{#1}}
+\newcommand{\keywords}[1]{\def\@keywords{#1}}
+\newcommand{\ENGkeywords}[1]{\def\@ENGkeywords{#1}}
+\newcommand{\university}[1]{\def\@university{#1}}
+\newcommand{\ENGuniversity}[1]{\def\@ENGuniversity{#1}}
 % 加入封面标题命令，支持封面标题的换行 20161124
-\newcommand\CoverTitle[1]{\def\@CoverTitle{#1}}
+\newcommand{\CoverTitle}[1]{\def\@CoverTitle{#1}}
 
 % 设置标题深度为4
 \setcounter{secnumdepth}{4}
 % CTEX设置各级标题对齐方式，字号，字体及前后段间距
 % “章节”标题，小三号黑体，左对齐，前后段间距为10pt
-\CTEXsetup[
-	format+={\zihao{-3}\rm\heiti\flushleft},
-	beforeskip={-1cm},
-	afterskip={10pt}
-]{chapter}
+\ctexset{chapter={format+={\zihao{-3}\rm\heiti\flushleft},beforeskip={-1cm},afterskip={10pt}}}
+% \CTEXsetup[
+% 	format+={\zihao{-3}\rm\heiti\flushleft},
+% 	beforeskip={-1cm},
+% 	afterskip={10pt}
+% ]{chapter}
 % “节”标题，四号黑体，左对齐，前后段间距为10pt
-\CTEXsetup[
-	format+={\zihao{4}\rm\heiti\flushleft},
-	beforeskip={10pt},
-	afterskip={10pt}
-]{section}
+\ctexset{section={format+={\zihao{4}\rm\heiti\flushleft},beforeskip={10pt},afterskip={10pt}}}
+% \CTEXsetup[
+% 	format+={\zihao{4}\rm\heiti\flushleft},
+% 	beforeskip={10pt},
+% 	afterskip={10pt}
+% ]{section}
 % “小节”标题，小四号黑体，左对齐，前后段间距为10pt
-\CTEXsetup[
-	format+={\zihao{-4}\rm\heiti\flushleft},
-	beforeskip={10pt},
-	afterskip={10pt}
-]{subsection}
+\ctexset{subsection={format+={\zihao{-4}\rm\heiti\flushleft},beforeskip={10pt},afterskip={10pt}}}
+% \CTEXsetup[
+% 	format+={\zihao{-4}\rm\heiti\flushleft},
+% 	beforeskip={10pt},
+% 	afterskip={10pt}
+% ]{subsection}
 % “次小节”标题，小四号楷体，左对齐，前后段间距为10pt
-\CTEXsetup[
-	format+={\zihao{-4}\rm\kaishu\flushleft},
-	beforeskip={10pt},
-	afterskip={10pt}
-]{subsubsection}
+\ctexset{subsubsection={format+={\zihao{-4}\rm\kaishu\flushleft},beforeskip={10pt},afterskip={10pt}}}
+% \CTEXsetup[
+% 	format+={\zihao{-4}\rm\kaishu\flushleft},
+% 	beforeskip={10pt},
+% 	afterskip={10pt}
+% ]{subsubsection}
 % “段”标题，小四号楷体，左对齐，前后段间距为0pt
 \renewcommand{\theparagraph}{(\arabic{paragraph})}
-\CTEXsetup[
-	name={,},
-	number={\theparagraph},
-	format+={\zihao{-4}\rm\kaishu\flushleft},
-	beforeskip={0pt},
-	afterskip={0pt}
-]{paragraph}
+\ctexset{paragraph={name={,},number={\theparagraph},format+={\zihao{-4}\rm\kaishu\flushleft},beforeskip={0pt},afterskip={0pt}}}
+% \CTEXsetup[
+% 	name={,},
+% 	number={\theparagraph},
+% 	format+={\zihao{-4}\rm\kaishu\flushleft},
+% 	beforeskip={0pt},
+% 	afterskip={0pt}
+% ]{paragraph}
 % 定义\makechaptertitlecenter命令，可使命令后章节标题居中
-\newcommand{\makechaptertitlecenter}{\CTEXsetup[format+={\center}]{chapter}}
+\newcommand{\makechaptertitlecenter}{\ctexset{chapter={format+={\center}}}}
+% \newcommand{\makechaptertitlecenter}{\CTEXsetup[format+={\center}]{chapter}}
 % 定义\makechaptertitleleft命令，可使命令后章节标题居左
-\newcommand{\makechaptertitleleft}{\CTEXsetup[format+={\flushleft}]{chapter}}
+\newcommand{\makechaptertitleleft}{\ctexset{chapter={format+={\flushleft}}}}
+% \newcommand{\makechaptertitleleft}{\CTEXsetup[format+={\flushleft}]{chapter}}
 % 判断论文类别，定义不同论文名称
-\ifthenelse{\equal{\thesistype}{0}}{
-	\def\thesisname{博士学位论文}
-	\def\CHSauthortype{研究生}
-	\def\ENGauthortype{Postgraduate}
-	}{}
-\ifthenelse{\equal{\thesistype}{1}}{
-	\def\thesisname{硕士学位论文}
-	\def\CHSauthortype{研究生}
-	\def\ENGauthortype{Postgraduate}
-	}{}
-\ifthenelse{\equal{\thesistype}{2}}{
-	\def\thesisname{学士学位论文}
-	\def\CHSauthortype{本科生}
-	\def\ENGauthortype{Undergraduate}
-	}{}
+% \ifthenelse{\equal{\thesistype}{0}}{
+% 	\def\thesisname{博士学位论文}
+% 	\def\CHSauthortype{研究生}
+% 	\def\ENGauthortype{Postgraduate}
+% 	}{}
+% \ifthenelse{\equal{\thesistype}{1}}{
+% 	\def\thesisname{硕士学位论文}
+% 	\def\CHSauthortype{研究生}
+% 	\def\ENGauthortype{Postgraduate}
+% 	}{}
+% \ifthenelse{\equal{\thesistype}{2}}{
+% 	\def\thesisname{学士学位论文}
+% 	\def\CHSauthortype{本科生}
+% 	\def\ENGauthortype{Undergraduate}
+% 	}{}
 
 
 % 定义\fillinblank命令，用下划线填充指定的空间。
@@ -187,7 +210,7 @@
 }
 
 % 设定标题页格式。
-\renewcommand\maketitle
+\renewcommand{\maketitle}
 {
 	\cleardoublepage
 	\begin{titlepage}
